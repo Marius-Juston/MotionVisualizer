@@ -2,28 +2,43 @@ package field;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class FieldChooser {
+public class FieldChooser implements Initializable {
 
 	private static final Stage stage = new Stage();
 	private static final FileChooser fileChooser = new FileChooser();
-
+	private static ImageView image = new ImageView();
 
 	static {
 		try {
 			Parent parent = FXMLLoader
-				.load(FieldChooser.class.getResource("../field/filedChooser.fxml"));
+				.load(FieldChooser.class.getResource("fieldChooser.fxml"));
 
 			stage.setScene(new Scene(parent));
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -35,12 +50,12 @@ public class FieldChooser {
 		fileChooser.setTitle("Choose field image");
 	}
 
-	public ImageView image;
+	private final ArrayList<Point2D> selectionPoints = new ArrayList<>();
+	public Text selectionText;
+	public ScrollPane scrollPane;
 
-
-	public ImageView pickField() {
+	public static ImageView pickField() {
 		stage.showAndWait();
-
 		return image;
 	}
 
@@ -54,7 +69,36 @@ public class FieldChooser {
 	}
 
 	public void selectAndCropImage(ActionEvent actionEvent) {
+		selectionText.setText("Select 2 points");
 
+//		TODO get make program wait for the user to select two points
+		Timeline timeline = new Timeline();
+		KeyFrame keyFrame = new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (selectionPoints.size() != 2) {
+					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), this::handle));
+				} else {
+					selectionPoints.sort((o1, o2) -> (int) ((o1.getY() - o2.getY())));
+					Point2D bottom = selectionPoints.get(0);
+					Point2D up = selectionPoints.get(1);
+
+					PixelReader reader = image.getImage().getPixelReader();
+					WritableImage newImage = new WritableImage(reader,
+						(int) bottom.getX(),
+						(int) bottom.getY(),
+						(int) Math.abs(up.getX() - bottom.getX()),
+						(int) Math.abs(up.getY() - bottom.getY())
+					);
+
+					image.setImage(newImage);
+				}
+			}
+		});
+
+		timeline.getKeyFrames().add(keyFrame);
+
+		timeline.play();
 	}
 
 	public void rotateImage(ActionEvent actionEvent) {
@@ -62,15 +106,29 @@ public class FieldChooser {
 	}
 
 	public void finish(ActionEvent actionEvent) {
-
+		((Node) actionEvent.getSource()).getScene().getWindow().hide();
 	}
 
 	public void changeImageScale(ActionEvent actionEvent) {
 		TextField label = (TextField) actionEvent.getSource();
 
-		image.setFitHeight(image.getImage().getHeight()* Double.parseDouble(label.getText()) / 100.0);
-		image.setFitWidth(image.getImage().getWidth() * Double.parseDouble(label.getText()) / 100.0);
-//		image.setFitWidth(100);
-//		image.setFitHeight(100);
+		image.setFitHeight(
+			image.getImage().getHeight() * Double.parseDouble(label.getText()) / 100.0);
+		image
+			.setFitWidth(image.getImage().getWidth() * Double.parseDouble(label.getText()) / 100.0);
+	}
+
+	public void selectPoint(MouseEvent mouseEvent) {
+
+		Point2D point2D = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+		selectionPoints.add(point2D);
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		scrollPane.setContent(image);
+		image.setPreserveRatio(true);
+		image.setOnMouseClicked(this::selectPoint);
 	}
 }
