@@ -131,4 +131,10 @@ public class FieldChooser implements Initializable {
 		image.setPreserveRatio(true);
 		image.setOnMouseClicked(this::selectPoint);
 	}
+
+	public void setScale(ActionEvent actionEvent) {
+
+	}
 }
+
+//TODO add button for 2 points then draw line? prompt set scale to have user put in the real distance for the length travelled in a unit
