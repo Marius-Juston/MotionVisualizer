@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
@@ -53,6 +52,7 @@ public class FieldChooser implements Initializable {
 	private final ArrayList<Point2D> selectionPoints = new ArrayList<>();
 	public Text selectionText;
 	public ScrollPane scrollPane;
+	private boolean selecting;
 
 	public static ImageView pickField() {
 		stage.showAndWait();
@@ -70,33 +70,36 @@ public class FieldChooser implements Initializable {
 
 	public void selectAndCropImage(ActionEvent actionEvent) {
 		selectionText.setText("Select 2 points");
+		selecting = true;
 
 //		TODO get make program wait for the user to select two points
 		Timeline timeline = new Timeline();
-		KeyFrame keyFrame = new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (selectionPoints.size() != 2) {
-					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), this::handle));
-				} else {
-					selectionPoints.sort((o1, o2) -> (int) ((o1.getY() - o2.getY())));
-					Point2D bottom = selectionPoints.get(0);
-					Point2D up = selectionPoints.get(1);
+		KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
+			System.out.println("Hello");
+			if (selectionPoints.size() == 2)
+//					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), this));
+			{
+				selecting = false;
+				selectionPoints.sort((o1, o2) -> (int) ((o1.getY() - o2.getY())));
+				Point2D bottom = selectionPoints.get(0);
+				Point2D up = selectionPoints.get(1);
 
-					PixelReader reader = image.getImage().getPixelReader();
-					WritableImage newImage = new WritableImage(reader,
-						(int) bottom.getX(),
-						(int) bottom.getY(),
-						(int) Math.abs(up.getX() - bottom.getX()),
-						(int) Math.abs(up.getY() - bottom.getY())
-					);
+				PixelReader reader = image.getImage().getPixelReader();
+				WritableImage newImage = new WritableImage(reader,
+					(int) bottom.getX(),
+					(int) bottom.getY(),
+					(int) Math.abs(up.getX() - bottom.getX()),
+					(int) Math.abs(up.getY() - bottom.getY())
+				);
 
-					image.setImage(newImage);
-				}
+				image.setImage(newImage);
 			}
 		});
 
 		timeline.getKeyFrames().add(keyFrame);
+//		timeline.setCycleCount(Timeline.INDEFINITE);
+//		timeline.setAutoReverse(true);
+		//FIXME make timeline repeat infitively
 
 		timeline.play();
 	}
@@ -120,9 +123,12 @@ public class FieldChooser implements Initializable {
 
 	public void selectPoint(MouseEvent mouseEvent) {
 
-		Point2D point2D = new Point2D(mouseEvent.getX(), mouseEvent.getY());
-		selectionPoints.add(point2D);
+		if (selecting) {
+			Point2D point2D = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+			selectionPoints.add(point2D);
 
+			System.out.println(selectionPoints.size());
+		}
 	}
 
 	@Override
