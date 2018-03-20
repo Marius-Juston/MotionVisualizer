@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="field.FieldChooser">
@@ -16,23 +17,43 @@
         </ScrollPane>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
           <children>
-            <Button mnemonicParsing="false" onAction="#showImage" text="Select image" />
-            <Button mnemonicParsing="false" onAction="#rotateImage" prefHeight="39.0" prefWidth="129.0" text="Rotate 90" />
-            <Button mnemonicParsing="false" onAction="#selectAndCropImage" text="Select and Crop" />
-            <Text fx:id="selectionText" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <HBox>
-              <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image scale" />
-                <TextField onAction="#changeImageScale" text="100" />
-              </children>
-            </HBox>
-                  <Text fx:id="selectionText2" layoutX="101.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="1.0" />
-                  <HBox prefHeight="39.0" prefWidth="182.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set scale" />
-                        <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#setScale" promptText="distance travelled" />
-                     </children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Image" underline="true">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Text>
+                  <Button mnemonicParsing="false" onAction="#showImage" text="Select image" />
+                  <Button mnemonicParsing="false" onAction="#rotateImage" prefHeight="39.0" prefWidth="129.0" text="Rotate 90" />
+                  <Button mnemonicParsing="false" onAction="#selectAndCropImage" text="Select and Crop" />
+                  <HBox alignment="CENTER">
+                    <children>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image scale" />
+                      <TextField onAction="#changeImageScale" prefHeight="25.0" prefWidth="107.0" text="100" />
+                    </children>
                   </HBox>
+                     </children>
+                  </VBox>
+            <Text fx:id="selectionText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text fx:id="selectionText2" layoutX="101.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="4.0" />
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Robot Information" underline="true">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
+                        <HBox alignment="CENTER" prefHeight="39.0" prefWidth="182.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set scale" />
+                              <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#setScale" prefHeight="25.0" prefWidth="133.0" promptText="distance travelled" />
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#setRoute" text="Set route" />
+                     </children>
+                  </VBox>
                   <Text fx:id="selectionText1" layoutX="101.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.0" />
           </children>
         </VBox>
