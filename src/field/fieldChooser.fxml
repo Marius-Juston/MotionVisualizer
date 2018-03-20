@@ -47,11 +47,11 @@
                         </Text>
                         <HBox alignment="CENTER" prefHeight="39.0" prefWidth="182.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set scale" />
-                              <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#setScale" prefHeight="25.0" prefWidth="133.0" promptText="distance travelled" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set distance" />
+                              <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#setDistance" prefHeight="25.0" prefWidth="117.0" promptText="distance travelled" />
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" onAction="#setRoute" text="Set route" />
+                        <Button mnemonicParsing="false" onAction="#setScale" text="Set scale" />
                      </children>
                   </VBox>
                   <Text fx:id="selectionText1" layoutX="101.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.0" />
