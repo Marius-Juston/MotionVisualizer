@@ -75,7 +75,7 @@ public class FieldChooser implements Initializable {
 //		TODO get make program wait for the user to select two points
 		Timeline timeline = new Timeline();
 		KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
-			System.out.println("Hello");
+			System.out.println("Hello, select 2 points");
 			if (selectionPoints.size() == 2)
 //					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), this));
 			{
@@ -143,4 +143,4 @@ public class FieldChooser implements Initializable {
 	}
 }
 
-//TODO add button for 2 points then draw line? prompt set scale to have user put in the real distance for the length travelled in a unit
+//TODO add button for 2 points then draw line?
