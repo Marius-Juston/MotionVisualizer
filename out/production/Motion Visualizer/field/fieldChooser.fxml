@@ -20,12 +20,20 @@
             <Button mnemonicParsing="false" onAction="#rotateImage" prefHeight="39.0" prefWidth="129.0" text="Rotate 90" />
             <Button mnemonicParsing="false" onAction="#selectAndCropImage" text="Select and Crop" />
             <Text fx:id="selectionText" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox>
               <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image scale" />
                 <TextField onAction="#changeImageScale" text="100" />
               </children>
             </HBox>
+                  <Text fx:id="selectionText2" layoutX="101.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="1.0" />
+                  <HBox prefHeight="39.0" prefWidth="182.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set scale" />
+                        <TextField alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" onAction="#setScale" prefHeight="25.0" prefWidth="69.0" promptText="distance" />
+                     </children>
+                  </HBox>
+                  <Text fx:id="selectionText1" layoutX="101.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.0" />
           </children>
         </VBox>
       </children>
