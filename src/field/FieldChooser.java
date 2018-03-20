@@ -139,21 +139,18 @@ public class FieldChooser implements Initializable {
 	}
 
 	public void setScale(ActionEvent actionEvent) {
-<<<<<<< HEAD
-        //set 2 points then make a path through then
-        // maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
+		//set 2 points then make a path through then
+		// maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
 	}
 
 	public void setDistance(ActionEvent actionEvent) {
 
-=======
 		// ask user for distance
 	}
 
 	public void setRoute(ActionEvent actionEvent) {
 		//set 2 points then make a path through then
 		// maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
->>>>>>> d6e3e8ee138b632371475c1bcd3054a7d64b9b8a
 
 	}
 }
