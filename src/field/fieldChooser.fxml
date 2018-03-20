@@ -19,6 +19,46 @@
         </ScrollPane>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
           <children>
+<<<<<<< HEAD
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Image" underline="true">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Text>
+                  <Button mnemonicParsing="false" onAction="#showImage" text="Select image" />
+                  <Button mnemonicParsing="false" onAction="#rotateImage" prefHeight="39.0" prefWidth="129.0" text="Rotate 90" />
+                  <Button mnemonicParsing="false" onAction="#selectAndCropImage" text="Select and Crop" />
+                  <HBox alignment="CENTER">
+                    <children>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image scale" />
+                      <TextField onAction="#changeImageScale" prefHeight="25.0" prefWidth="107.0" text="100" />
+                    </children>
+                  </HBox>
+                     </children>
+                  </VBox>
+            <Text fx:id="selectionText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text fx:id="selectionText2" layoutX="101.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="4.0" />
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Robot Information" underline="true">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
+                        <HBox alignment="CENTER" prefHeight="39.0" prefWidth="182.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set distance" />
+                              <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#setDistance" prefHeight="25.0" prefWidth="117.0" promptText="distance travelled" />
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#setScale" text="Set scale" />
+                     </children>
+                  </VBox>
+                  <Text fx:id="selectionText1" layoutX="101.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.0" />
+=======
             <HBox prefHeight="100.0" prefWidth="200.0"/>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
               <children>
@@ -64,6 +104,7 @@
             </VBox>
             <Text layoutX="101.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0"
               wrappingWidth="53.0" fx:id="selectionText1"/>
+>>>>>>> d6e3e8ee138b632371475c1bcd3054a7d64b9b8a
           </children>
         </VBox>
       </children>
