@@ -139,7 +139,7 @@ public class FieldChooser implements Initializable {
 	}
 
 	public void setScale(ActionEvent actionEvent) {
-
+        // ask user for distance
 	}
 }
 
