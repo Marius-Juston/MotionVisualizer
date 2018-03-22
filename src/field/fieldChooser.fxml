@@ -57,7 +57,7 @@
                                         <TextField maxWidth="-Infinity" minWidth="-Infinity" onAction="#setDistance" prefHeight="25.0" prefWidth="117.0" promptText="distance travelled" />
                                     </children>
                                 </HBox>
-                                <Button mnemonicParsing="false" onAction="#setScale" text="Set scale" />
+                                <Button mnemonicParsing="false" onAction="#setRoute" text="Set Route" />
                             </children>
                         </VBox>
                         <Text fx:id="selectionText1" layoutX="101.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.0" />

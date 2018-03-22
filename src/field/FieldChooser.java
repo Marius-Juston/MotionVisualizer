@@ -139,33 +139,18 @@ public class FieldChooser implements Initializable {
         image.setOnMouseClicked(this::selectPoint);
     }
 
-<<<<<<< HEAD
-    public void setScale(ActionEvent actionEvent) {
-        
-    }
-=======
-	public void setScale(ActionEvent actionEvent) {
-		//set 2 points then make a path through then
-		// maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
-	}
->>>>>>> c05be05d1fec67df8031199a49b9e8b0da424db6
 
     public Double setDistance(ActionEvent actionEvent) {
         TextField meters = (TextField) actionEvent.getSource();
         double distance = Double.parseDouble(meters.getText());
         return distance;
 
-<<<<<<< HEAD
     }
 
-=======
-		// ask user for distance
-	}
-
 	public void setRoute(ActionEvent actionEvent) {
-		//set 2 points then make a path through then
-		// maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
->>>>>>> c05be05d1fec67df8031199a49b9e8b0da424db6
+        //set 2 points then make a path through then
+        // maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
+    }
 
 }
 
