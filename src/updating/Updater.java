@@ -2,7 +2,7 @@ package updating;
 
 public class Updater {
 
-	public static void getLatestActuallySimpleSplinesJar() {
+    public static void getLatestActuallySimpleSplinesJar() {
 
-	}
+    }
 }

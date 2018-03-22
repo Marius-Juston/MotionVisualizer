@@ -1,10 +1,5 @@
 package field;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -28,134 +23,137 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 public class FieldChooser implements Initializable {
 
-	private static final Stage stage = new Stage();
-	private static final FileChooser fileChooser = new FileChooser();
-	private static ImageView image = new ImageView();
+    private static final Stage stage = new Stage();
+    private static final FileChooser fileChooser = new FileChooser();
+    private static ImageView image = new ImageView();
 
-	static {
-		try {
-			Parent parent = FXMLLoader
-				.load(FieldChooser.class.getResource("fieldChooser.fxml"));
+    static {
+        try {
+            Parent parent = FXMLLoader
+                    .load(FieldChooser.class.getResource("fieldChooser.fxml"));
 
-			stage.setScene(new Scene(parent));
-			stage.initModality(Modality.APPLICATION_MODAL);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            stage.setScene(new Scene(parent));
+            stage.initModality(Modality.APPLICATION_MODAL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image", "*.png", "*.jpg"));
-		fileChooser.setTitle("Choose field image");
-	}
+        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image", "*.png", "*.jpg"));
+        fileChooser.setTitle("Choose field image");
+    }
 
-	private final ArrayList<Point2D> selectionPoints = new ArrayList<>();
-	public Text selectionText;
-	public ScrollPane scrollPane;
-	private boolean selecting;
+    private final ArrayList<Point2D> selectionPoints = new ArrayList<>();
+    public Text selectionText;
+    public ScrollPane scrollPane;
+    private boolean selecting;
 
-	public static ImageView pickField() {
-		stage.showAndWait();
-		return image;
-	}
+    public static ImageView pickField() {
+        stage.showAndWait();
+        return image;
+    }
 
-	public void showImage(ActionEvent actionEvent) throws IOException {
-		File file = fileChooser.showOpenDialog(stage);
+    public void showImage(ActionEvent actionEvent) throws IOException {
+        File file = fileChooser.showOpenDialog(stage);
 
-		if (file != null) {
-			image.setImage(new Image("file:" + file.getCanonicalPath()));
-			image.setPreserveRatio(true);
-		}
-	}
+        if (file != null) {
+            image.setImage(new Image("file:" + file.getCanonicalPath()));
+            image.setPreserveRatio(true);
+        }
+    }
 
-	public void selectAndCropImage(ActionEvent actionEvent) {
-		selectionText.setText("Select 2 points");
-		selecting = true;
+    public void selectAndCropImage(ActionEvent actionEvent) {
+        selectionText.setText("Select 2 points");
+        selecting = true;
 
 //		TODO get make program wait for the user to select two points
-		Timeline timeline = new Timeline();
-		KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
-			System.out.println("Hello, select 2 points");
-			if (selectionPoints.size() == 2)
+        Timeline timeline = new Timeline();
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
+            System.out.println("Hello");
+            if (selectionPoints.size() == 2)
 //					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), this));
-			{
-				selecting = false;
-				selectionPoints.sort((o1, o2) -> (int) ((o1.getY() - o2.getY())));
-				Point2D bottom = selectionPoints.get(0);
-				Point2D up = selectionPoints.get(1);
+            {
+                selecting = false;
+                selectionPoints.sort((o1, o2) -> (int) ((o1.getY() - o2.getY())));
+                Point2D bottom = selectionPoints.get(0);
+                Point2D up = selectionPoints.get(1);
 
-				PixelReader reader = image.getImage().getPixelReader();
-				WritableImage newImage = new WritableImage(reader,
-					(int) bottom.getX(),
-					(int) bottom.getY(),
-					(int) Math.abs(up.getX() - bottom.getX()),
-					(int) Math.abs(up.getY() - bottom.getY())
-				);
+                PixelReader reader = image.getImage().getPixelReader();
+                WritableImage newImage = new WritableImage(reader,
+                        (int) bottom.getX(),
+                        (int) bottom.getY(),
+                        (int) Math.abs(up.getX() - bottom.getX()),
+                        (int) Math.abs(up.getY() - bottom.getY())
+                );
 
-				image.setImage(newImage);
-			}
-		});
+                image.setImage(newImage);
+            }
+        });
 
-		timeline.getKeyFrames().add(keyFrame);
+        timeline.getKeyFrames().add(keyFrame);
 //		timeline.setCycleCount(Timeline.INDEFINITE);
 //		timeline.setAutoReverse(true);
-		//FIXME make timeline repeat infitively
+        //FIXME make timeline repeat infitively
 
-		timeline.play();
-	}
+        timeline.play();
+    }
 
-	public void rotateImage(ActionEvent actionEvent) {
-		image.setRotate(image.getRotate() + 90);
-	}
+    public void rotateImage(ActionEvent actionEvent) {
+        image.setRotate(image.getRotate() + 90);
+    }
 
-	public void finish(ActionEvent actionEvent) {
-		((Node) actionEvent.getSource()).getScene().getWindow().hide();
-	}
+    public void finish(ActionEvent actionEvent) {
+        ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+    }
 
-	public void changeImageScale(ActionEvent actionEvent) {
-		TextField label = (TextField) actionEvent.getSource();
+    public void changeImageScale(ActionEvent actionEvent) {
+        TextField label = (TextField) actionEvent.getSource();
 
-		image.setFitHeight(
-			image.getImage().getHeight() * Double.parseDouble(label.getText()) / 100.0);
-		image
-			.setFitWidth(image.getImage().getWidth() * Double.parseDouble(label.getText()) / 100.0);
-	}
+        image.setFitHeight(
+                image.getImage().getHeight() * Double.parseDouble(label.getText()) / 100.0);
+        image
+                .setFitWidth(image.getImage().getWidth() * Double.parseDouble(label.getText()) / 100.0);
+    }
 
-	public void selectPoint(MouseEvent mouseEvent) {
+    public void selectPoint(MouseEvent mouseEvent) {
 
-		if (selecting) {
-			Point2D point2D = new Point2D(mouseEvent.getX(), mouseEvent.getY());
-			selectionPoints.add(point2D);
+        if (selecting) {
+            Point2D point2D = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+            selectionPoints.add(point2D);
 
-			System.out.println(selectionPoints.size());
-		}
-	}
+            System.out.println(selectionPoints.size());
+        }
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		scrollPane.setContent(image);
-		image.setPreserveRatio(true);
-		image.setOnMouseClicked(this::selectPoint);
-	}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        scrollPane.setContent(image);
+        image.setPreserveRatio(true);
+        image.setOnMouseClicked(this::selectPoint);
+    }
 
-	public void setScale(ActionEvent actionEvent) {
-<<<<<<< HEAD
-        //set 2 points then make a path through then
-        // maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
-	}
+    public void setScale(ActionEvent actionEvent) {
+        
+    }
 
-	public void setDistance(ActionEvent actionEvent) {
+    public Double setDistance(ActionEvent actionEvent) {
+        TextField meters = (TextField) actionEvent.getSource();
+        double distance = Double.parseDouble(meters.getText());
+        return distance;
 
-=======
-		// ask user for distance
-	}
+    }
 
-	public void setRoute(ActionEvent actionEvent) {
-		//set 2 points then make a path through then
-		// maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
->>>>>>> d6e3e8ee138b632371475c1bcd3054a7d64b9b8a
 
-	}
 }
 
-//TODO add button for 2 points then draw line?
+//TODO add button for 2 points then draw line
+
+// press 2 dots then a line goes through the dots
+// then pop up come up asking for real length --> save into static variable
