@@ -15,7 +15,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -53,6 +56,8 @@ public class FieldChooser implements Initializable {
     private final ArrayList<Point2D> selectionPoints = new ArrayList<>();
     public Text selectionText;
     public ScrollPane scrollPane;
+    public Pane pane;
+
     private boolean selecting;
 
     public static ImageView pickField() {
@@ -134,7 +139,7 @@ public class FieldChooser implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        scrollPane.setContent(image);
+        pane.getChildren().add(image);
         image.setPreserveRatio(true);
         image.setOnMouseClicked(this::selectPoint);
     }
@@ -148,10 +153,20 @@ public class FieldChooser implements Initializable {
     }
 
 	public void setRoute(ActionEvent actionEvent) {
-        //set 2 points then make a path through then
-        // maybe a start and stop button, or just set amount of dots (start with 2 for now, maybe upgrade it for later)
+        // connect dots with a line
     }
 
+    public void addDots(MouseEvent actionEvent){
+    // add dots where mouse click
+        // how to I get coordinates of a mouse click
+        Circle dot = new Circle(actionEvent.getX()
+                , actionEvent.getY(), 10);
+        pane.getChildren().add(dot);
+    }
+
+    public void dragDots(DragEvent dragEvent) {
+        // make it when the mouse x and y are on the dot and the mouse is clicking, and dragging, then move the dot with it
+    }
 }
 
 //TODO add button for 2 points then draw line
